@@ -10,6 +10,14 @@
       "StackName": "amplify-bms-dev-53e7a",
       "StackId": "arn:aws:cloudformation:ap-southeast-2:617995200710:stack/amplify-bms-dev-53e7a/3be96930-c1fb-11f0-8cfd-0249b56d6ebd",
       "AmplifyAppId": "d3kf7jirthj2m"
+    },
+    "categories": {
+      "auth": {
+        "bms51dc36f0": {}
+      },
+      "api": {
+        "bms": {}
+      }
     }
   }
 }

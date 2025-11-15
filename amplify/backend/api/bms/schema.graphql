@@ -1,9 +1,145 @@
-# This "input" configures a global authorization rule to enable public access to
-# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+################################################################################
+# USER MODEL
+################################################################################
 
-type Todo @model {
+type User
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [read, create, delete, update] }
+      { allow: owner, operations: [read, create, delete, update] }
+      { allow: public, operations: [read], provider: apiKey }
+    ]
+  ) {
+
   id: ID!
-  name: String!
-  description: String
+
+  # Basic User Info
+  username: String!
+  email: AWSEmail!
+  phone: AWSPhone
+  role: String! # Admin, Staff, Resident, Official
+
+  # Profile
+  firstName: String
+  middleName: String
+  lastName: String
+  suffix: String
+
+  # Address
+  barangay: String
+  city: String
+  province: String
+
+  # Audit
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+
+  # Relationship
+  residents: [Resident] @hasMany(indexName: "byUser", fields: ["id"])
+}
+
+################################################################################
+# RESIDENT MODEL
+################################################################################
+
+type Resident
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [read, create, delete, update] }
+      { allow: owner, operations: [read, create, delete, update] }
+      { allow: public, operations: [read], provider: apiKey }
+    ]
+  ) {
+
+  id: ID!
+
+  # Foreign Key to User
+  userID: ID @index(name: "byUser")
+
+  # Optional foreign key to BarangayOfficial
+  officialID: ID @index(name: "byOfficial")
+
+  # Basic Information
+  firstName: String!
+  middleName: String
+  lastName: String!
+  suffix: String
+  gender: String!
+  dateOfBirth: AWSDate
+
+  # Contact
+  email: AWSEmail
+  phone: AWSPhone
+
+  # Address
+  houseNumber: String
+  street: String
+  purok: String
+  sitio: String
+  barangay: String!
+  city: String!
+  province: String!
+  postalCode: String
+
+  # Residency Information
+  residentIDNumber: String
+  householdId: ID
+  isHeadOfFamily: Boolean
+
+  # Additional Info
+  occupation: String
+  civilStatus: String
+  nationality: String
+
+  # Audit
+  createdBy: String
+  updatedBy: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+################################################################################
+# BARANGAY OFFICIAL MODEL
+################################################################################
+
+enum OfficialPosition {
+  PUNONG_BARANGAY
+  KAGAWAD
+  SK_CHAIRPERSON
+  SECRETARY
+  TREASURER
+}
+
+type BarangayOfficial
+  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [read, create, delete, update] }
+      { allow: owner, operations: [read, create, delete, update] }
+      { allow: public, operations: [read], provider: apiKey }
+    ]
+  ) {
+
+  id: ID!
+
+  # Optional link to Resident
+  residentID: ID @index(name: "byResident")
+
+  # Official Information
+  position: OfficialPosition!
+  termStart: AWSDate
+  termEnd: AWSDate
+  isActive: Boolean!
+
+  # Additional
+  committee: String  # e.g., Peace & Order, Appropriations, etc.
+  remarks: String
+
+  # Audit
+  createdBy: String
+  updatedBy: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
 }
