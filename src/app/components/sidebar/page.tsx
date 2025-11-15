@@ -18,6 +18,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import PositionsPage from '../../pages/positions/page';
 
 const BarangayDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -324,15 +325,8 @@ const BarangayDashboard = () => {
           )}
           {activeMenu === 'positions' && (
             <Card className="border-0 shadow-lg bg-white">
-              <CardHeader className="border-b border-slate-100">
-                <CardTitle className="text-2xl font-bold text-slate-900">Positions</CardTitle>
-              </CardHeader>
-              <CardContent className="p-8">
-                <div className="text-center py-12">
-                  <Users className="w-16 h-16 text-purple-500 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-slate-900 mb-2">Positions Module</h3>
-                  <p className="text-slate-600">Manage barangay positions and responsibilities.</p>
-                </div>
+              <CardContent className="p-0">
+                <PositionsPage />
               </CardContent>
             </Card>
           )}
