@@ -9,7 +9,6 @@ export const onCreateUser = /* GraphQL */ `
     onCreateUser(filter: $filter, owner: $owner) {
       id
       username
-      email
       phone
       role
       firstName
@@ -38,7 +37,6 @@ export const onUpdateUser = /* GraphQL */ `
     onUpdateUser(filter: $filter, owner: $owner) {
       id
       username
-      email
       phone
       role
       firstName
@@ -67,7 +65,6 @@ export const onDeleteUser = /* GraphQL */ `
     onDeleteUser(filter: $filter, owner: $owner) {
       id
       username
-      email
       phone
       role
       firstName
@@ -201,6 +198,54 @@ export const onDeleteResident = /* GraphQL */ `
       nationality
       createdBy
       updatedBy
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onCreateOfficialPosition = /* GraphQL */ `
+  subscription OnCreateOfficialPosition(
+    $filter: ModelSubscriptionOfficialPositionFilterInput
+    $owner: String
+  ) {
+    onCreateOfficialPosition(filter: $filter, owner: $owner) {
+      id
+      position
+      description
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onUpdateOfficialPosition = /* GraphQL */ `
+  subscription OnUpdateOfficialPosition(
+    $filter: ModelSubscriptionOfficialPositionFilterInput
+    $owner: String
+  ) {
+    onUpdateOfficialPosition(filter: $filter, owner: $owner) {
+      id
+      position
+      description
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onDeleteOfficialPosition = /* GraphQL */ `
+  subscription OnDeleteOfficialPosition(
+    $filter: ModelSubscriptionOfficialPositionFilterInput
+    $owner: String
+  ) {
+    onDeleteOfficialPosition(filter: $filter, owner: $owner) {
+      id
+      position
+      description
       createdAt
       updatedAt
       owner

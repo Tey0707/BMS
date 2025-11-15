@@ -9,7 +9,6 @@ export const createUser = /* GraphQL */ `
     createUser(input: $input, condition: $condition) {
       id
       username
-      email
       phone
       role
       firstName
@@ -38,7 +37,6 @@ export const updateUser = /* GraphQL */ `
     updateUser(input: $input, condition: $condition) {
       id
       username
-      email
       phone
       role
       firstName
@@ -67,7 +65,6 @@ export const deleteUser = /* GraphQL */ `
     deleteUser(input: $input, condition: $condition) {
       id
       username
-      email
       phone
       role
       firstName
@@ -201,6 +198,54 @@ export const deleteResident = /* GraphQL */ `
       nationality
       createdBy
       updatedBy
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const createOfficialPosition = /* GraphQL */ `
+  mutation CreateOfficialPosition(
+    $input: CreateOfficialPositionInput!
+    $condition: ModelOfficialPositionConditionInput
+  ) {
+    createOfficialPosition(input: $input, condition: $condition) {
+      id
+      position
+      description
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const updateOfficialPosition = /* GraphQL */ `
+  mutation UpdateOfficialPosition(
+    $input: UpdateOfficialPositionInput!
+    $condition: ModelOfficialPositionConditionInput
+  ) {
+    updateOfficialPosition(input: $input, condition: $condition) {
+      id
+      position
+      description
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const deleteOfficialPosition = /* GraphQL */ `
+  mutation DeleteOfficialPosition(
+    $input: DeleteOfficialPositionInput!
+    $condition: ModelOfficialPositionConditionInput
+  ) {
+    deleteOfficialPosition(input: $input, condition: $condition) {
+      id
+      position
+      description
       createdAt
       updatedAt
       owner

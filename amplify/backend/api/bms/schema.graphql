@@ -1,6 +1,3 @@
-################################################################################
-# USER MODEL
-################################################################################
 
 type User
   @model
@@ -16,7 +13,6 @@ type User
 
   # Basic User Info
   username: String!
-  email: AWSEmail!
   phone: AWSPhone
   role: String! # Admin, Staff, Resident, Official
 
@@ -39,9 +35,6 @@ type User
   residents: [Resident] @hasMany(indexName: "byUser", fields: ["id"])
 }
 
-################################################################################
-# RESIDENT MODEL
-################################################################################
 
 type Resident
   @model
@@ -62,11 +55,11 @@ type Resident
   officialID: ID @index(name: "byOfficial")
 
   # Basic Information
-  firstName: String!
+  firstName: String
   middleName: String
-  lastName: String!
+  lastName: String
   suffix: String
-  gender: String!
+  gender: String
   dateOfBirth: AWSDate
 
   # Contact
@@ -78,9 +71,9 @@ type Resident
   street: String
   purok: String
   sitio: String
-  barangay: String!
-  city: String!
-  province: String!
+  barangay: String
+  city: String
+  province: String
   postalCode: String
 
   # Residency Information
@@ -104,12 +97,19 @@ type Resident
 # BARANGAY OFFICIAL MODEL
 ################################################################################
 
-enum OfficialPosition {
-  PUNONG_BARANGAY
-  KAGAWAD
-  SK_CHAIRPERSON
-  SECRETARY
-  TREASURER
+type OfficialPosition  @model
+  @auth(
+    rules: [
+      { allow: private, operations: [read, create, delete, update] }
+      { allow: owner, operations: [read, create, delete, update] }
+      { allow: public, operations: [read], provider: apiKey }
+    ]
+  ) {
+  id: ID!
+  position: String
+  description: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
 }
 
 type BarangayOfficial
@@ -128,10 +128,10 @@ type BarangayOfficial
   residentID: ID @index(name: "byResident")
 
   # Official Information
-  position: OfficialPosition!
+  position: String
   termStart: AWSDate
   termEnd: AWSDate
-  isActive: Boolean!
+  isActive: Boolean
 
   # Additional
   committee: String  # e.g., Peace & Order, Appropriations, etc.

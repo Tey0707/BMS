@@ -6,7 +6,6 @@ export const getUser = /* GraphQL */ `
     getUser(id: $id) {
       id
       username
-      email
       phone
       role
       firstName
@@ -37,7 +36,6 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         username
-        email
         phone
         role
         firstName
@@ -235,6 +233,44 @@ export const residentsByOfficialID = /* GraphQL */ `
         nationality
         createdBy
         updatedBy
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getOfficialPosition = /* GraphQL */ `
+  query GetOfficialPosition($id: ID!) {
+    getOfficialPosition(id: $id) {
+      id
+      position
+      description
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const listOfficialPositions = /* GraphQL */ `
+  query ListOfficialPositions(
+    $filter: ModelOfficialPositionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listOfficialPositions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        position
+        description
         createdAt
         updatedAt
         owner

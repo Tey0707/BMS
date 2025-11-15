@@ -29,6 +29,7 @@ const BarangayDashboard = () => {
     { id: 'documents', label: 'Documents', icon: FileText },
     { id: 'events', label: 'Events', icon: Calendar },
     { id: 'officials', label: 'Officials', icon: UserCheck },
+    { id: 'positions', label: 'Positions', icon: Users },
     { id: 'reports', label: 'Reports', icon: Activity },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
@@ -317,6 +318,20 @@ const BarangayDashboard = () => {
                   <UserCheck className="w-16 h-16 text-purple-500 mx-auto mb-4" />
                   <h3 className="text-xl font-semibold text-slate-900 mb-2">Officials Module</h3>
                   <p className="text-slate-600">Manage barangay officials, positions, and responsibilities.</p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+          {activeMenu === 'positions' && (
+            <Card className="border-0 shadow-lg bg-white">
+              <CardHeader className="border-b border-slate-100">
+                <CardTitle className="text-2xl font-bold text-slate-900">Positions</CardTitle>
+              </CardHeader>
+              <CardContent className="p-8">
+                <div className="text-center py-12">
+                  <Users className="w-16 h-16 text-purple-500 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-slate-900 mb-2">Positions Module</h3>
+                  <p className="text-slate-600">Manage barangay positions and responsibilities.</p>
                 </div>
               </CardContent>
             </Card>
